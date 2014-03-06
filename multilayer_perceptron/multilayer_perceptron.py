@@ -269,7 +269,7 @@ class BaseMultilayerPerceptron(six.with_metaclass(ABCMeta, BaseEstimator)):
             batch_size = n_samples
         else:
             batch_size = np.clip(self.batch_size, 0, n_samples)
-            n_batches = n_samples / batch_size
+            n_batches = n_samples // batch_size
             batch_slices = list(
                 gen_even_slices(
                     n_batches * batch_size,
@@ -282,7 +282,7 @@ class BaseMultilayerPerceptron(six.with_metaclass(ABCMeta, BaseEstimator)):
         if self.algorithm == 'sgd':
             prev_cost = np.inf
 
-            for i in xrange(self.max_iter):
+            for i in range(self.max_iter):
                 for batch_slice in batch_slices:
                     cost = self._backprop_sgd(
                         X[batch_slice],
